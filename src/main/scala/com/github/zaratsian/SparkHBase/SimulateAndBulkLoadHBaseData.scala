@@ -141,7 +141,7 @@ object SimulateAndBulkLoadHBaseData{
 
 
   def getProps(file: => String): HashMap[String,String] = {
-    var props = new HashMap[String,String]
+    var props: HashMap[String, String] = HashMap.empty[String,String]
     val lines = fromFile(file).getLines
     lines.foreach(x => if (x contains "=") props.put(x.split("=")(0), if (x.split("=").size > 1) x.split("=")(1) else null))
     props
