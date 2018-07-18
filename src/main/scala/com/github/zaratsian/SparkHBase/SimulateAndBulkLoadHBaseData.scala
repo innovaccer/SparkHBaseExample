@@ -78,7 +78,7 @@ object SimulateAndBulkLoadHBaseData{
     
     println("[ *** ] Creating HBase Configuration")
     val hConf = HBaseConfiguration.create()
-    hConf.set("zookeeper.znode.parent", "/hbase-unsecure")
+    hConf.set("zookeeper.znode.parent", "/hbase")
     hConf.set(TableInputFormat.INPUT_TABLE, hTableName)
 
     val table = new HTable(hConf, hTableName)
@@ -110,7 +110,7 @@ object SimulateAndBulkLoadHBaseData{
 
         println("[ *** ] Saving data to HDFS as KeyValue/HFileOutputFormat (table name = " + hTableName + ")")
         val hConf2 = HBaseConfiguration.create()
-        hConf2.set("zookeeper.znode.parent", "/hbase-unsecure")
+        hConf2.set("zookeeper.znode.parent", "/hbase")
         hConf2.set(TableOutputFormat.OUTPUT_TABLE, hTableName)
         rdd_out.saveAsNewAPIHadoopFile("/tmp/" + hTableName, classOf[ImmutableBytesWritable], classOf[KeyValue], classOf[HFileOutputFormat], hConf2)
 
@@ -141,7 +141,7 @@ object SimulateAndBulkLoadHBaseData{
 
 
   def getProps(file: => String): HashMap[String,String] = {
-    val props: HashMap[String, String] = _
+    val props: HashMap[String, String] = HashMap.empty[String, String]
     val lines = fromFile(file).getLines
     lines.foreach(x => if (x contains "=") props.put(x.split("=")(0), if (x.split("=").size > 1) x.split("=")(1) else null))
     props

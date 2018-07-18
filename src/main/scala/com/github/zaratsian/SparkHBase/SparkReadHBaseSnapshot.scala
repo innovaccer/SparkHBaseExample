@@ -75,7 +75,7 @@ object SparkReadHBaseSnapshot{
     println("[ *** ] Creating HBase Configuration")
     val hConf = HBaseConfiguration.create()
     hConf.set("hbase.rootdir", props.getOrElse("hbase.rootdir", "/tmp"))
-    hConf.set("hbase.zookeeper.quorum",  props.getOrElse("hbase.zookeeper.quorum", "localhost:2181:/hbase-unsecure"))
+    hConf.set("hbase.zookeeper.quorum",  props.getOrElse("hbase.zookeeper.quorum", "localhost:2181:/hbase"))
     hConf.set(TableInputFormat.SCAN, convertScanToString(new Scan().setMaxVersions(max_versions)) )
 
     val job = Job.getInstance(hConf)
@@ -166,7 +166,7 @@ object SparkReadHBaseSnapshot{
     // Configure HBase output settings
     val hTableName = snapName + "_filtered"
     val hConf2 = HBaseConfiguration.create()
-    hConf2.set("zookeeper.znode.parent", "/hbase-unsecure")
+    hConf2.set("zookeeper.znode.parent", "/hbase")
     hConf2.set(TableOutputFormat.OUTPUT_TABLE, hTableName)
 
     //println("[ *** ] Saving results to HDFS as HBase KeyValue HFileOutputFormat. This makes it easy to BulkLoad into HBase (see SparkHBaseBulkLoad.scala for bulkload code)") 
