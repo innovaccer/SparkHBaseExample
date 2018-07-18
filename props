@@ -4,7 +4,7 @@
 #
 ##############################################################
 hbase.rootdir=/apps/hbase/data
-hbase.zookeeper.quorum=spark-newpoc-2.novalocal:/hbase,spark-newpoc-1.novalocal:/hbase,spark-newpoc-3.novalocal:/hbase
+hbase.zookeeper.quorum=spark-newpoc-2.novalocal,spark-newpoc-1.novalocal,spark-newpoc-3.novalocal
 hbase.snapshot.path=/user/hbase
 
 
