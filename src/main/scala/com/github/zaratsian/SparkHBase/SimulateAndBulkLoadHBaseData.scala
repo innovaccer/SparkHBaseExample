@@ -111,6 +111,8 @@ object SimulateAndBulkLoadHBaseData{
 
         println("[ *** ] Saving data to HDFS as KeyValue/HFileOutputFormat (table name = " + hTableName + ")")
         val hConf2 = HBaseConfiguration.create()
+
+        hConf2.set("hbase.zookeeper.quorum",  props.getOrElse("hbase.zookeeper.quorum", "localhost:2181:/hbase"))
         hConf2.set("zookeeper.znode.parent", "/hbase")
         hConf2.set(TableOutputFormat.OUTPUT_TABLE, hTableName)
         rdd_out.saveAsNewAPIHadoopFile("/tmp/" + hTableName, classOf[ImmutableBytesWritable], classOf[KeyValue], classOf[HFileOutputFormat], hConf2)
