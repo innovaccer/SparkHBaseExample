@@ -78,6 +78,7 @@ object SimulateAndBulkLoadHBaseData{
     
     println("[ *** ] Creating HBase Configuration")
     val hConf = HBaseConfiguration.create()
+    hConf.set("hbase.zookeeper.quorum",  props.getOrElse("hbase.zookeeper.quorum", "localhost:2181:/hbase"))
     hConf.set("zookeeper.znode.parent", "/hbase")
     hConf.set(TableInputFormat.INPUT_TABLE, hTableName)
 
